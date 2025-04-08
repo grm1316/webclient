@@ -1,11 +1,13 @@
 #include "widget.h"
 #include "ui_widget.h"
+#include <QSettings>
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Widget)
 {
     ui->setupUi(this);
+    loadSettings();
 
     //socket_.connected();
     QObject::connect(&socket_,&QAbstractSocket::connected, this, &Widget::doConnected);
@@ -17,6 +19,7 @@ Widget::Widget(QWidget *parent)
 
 Widget::~Widget()
 {
+    saveSettings();
     delete ui;
 }
 
@@ -76,4 +79,20 @@ void Widget::on_tcpCb_checkStateChanged(const Qt::CheckState &state)
 
 void Widget::on_pbClear_clicked() {
     ui->pteMessage->clear();
+}
+
+void Widget::saveSettings() {
+    QSettings settings("YourOrganization", "YourAppName");
+
+    settings.setValue("window/geometry", saveGeometry());
+    settings.setValue("lineEditText", ui->leHost->text());
+    settings.setValue("plainTextEditText", ui->pteMessage->toPlainText());
+}
+
+void Widget::loadSettings() {
+    QSettings settings("YourOrganization", "YourAppName");
+
+    restoreGeometry(settings.value("window/geometry").toByteArray());
+    ui->leHost->setText(settings.value("lineEditText").toString());
+    ui->pteMessage->setPlainText(settings.value("plainTextEditText").toString());
 }

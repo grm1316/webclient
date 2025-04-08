@@ -40,6 +40,10 @@ private slots:
 
     void on_pbClear_clicked();
 
+    void loadSettings();
+
+    void saveSettings();
+
 private:
     Ui::Widget *ui;
 };
