@@ -38,7 +38,7 @@ void Widget::doReadyRead(){
 
 void Widget::on_pbConnect_clicked(){
     if(ui->sslCb->isChecked()){
-         socket_.connectToHostEncrypted(ui->leHost->text(),ui->lePort->text().toUShort());
+        socket_.connectToHostEncrypted(ui->leHost->text(),ui->lePort->text().toUShort());
     }
     else if (ui->tcpCb->isChecked()){
         socket_.connectToHost(ui->leHost->text(),ui->lePort->text().toUShort());
@@ -62,17 +62,18 @@ void Widget::on_sslCb_checkStateChanged(const Qt::CheckState &state)
 {
     if (state == Qt::Checked)
         ui->tcpCb->setCheckState(Qt::Unchecked);
-        ui->leHost->setText("www.naver.com");
-        ui->lePort->setText("443");
+    ui->leHost->setText("www.naver.com");
+    ui->lePort->setText("443");
 }
 
 void Widget::on_tcpCb_checkStateChanged(const Qt::CheckState &state)
 {
     if (state == Qt::Checked)
         ui->sslCb->setCheckState(Qt::Unchecked);
-        ui->leHost->setText("naver.com");
-        ui->lePort->setText("80");
+    ui->leHost->setText("naver.com");
+    ui->lePort->setText("80");
 }
 
-
-
+void Widget::on_pbClear_clicked() {
+    ui->pteMessage->clear();
+}

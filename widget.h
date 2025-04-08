@@ -38,6 +38,8 @@ private slots:
 
     void on_tcpCb_checkStateChanged(const Qt::CheckState &arg1);
 
+    void on_pbClear_clicked();
+
 private:
     Ui::Widget *ui;
 };
